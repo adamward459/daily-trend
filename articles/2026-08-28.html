@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of Aug 21–28, 2026</title>
+<meta name="description" content="Next.js ships two critical RCE patches while an npm worm keeps eating the Node ecosystem.">
+<meta name="date" content="2026-08-28">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="site-name" href="../index.html">← Daily Trend</a>
+    <h1>Week of Aug 21–28, 2026</h1>
+    <p class="dateline">Published Aug 28, 2026</p>
+  </header>
+
+  <div class="lede">
+    <h2>Top 3 this week</h2>
+    <ol>
+      <li><strong>Next.js patched two critical RCE bugs.</strong> If you run Next.js, upgrade to 16.3.3 or 15.5.24 today. Both flaws allow unauthenticated remote code execution.</li>
+      <li><strong>The ChainDrop npm worm is still spreading.</strong> It hit <code>keyv</code>, <code>cacheable</code>, <code>flat-cache</code> and friends — packages that sit deep in almost every Node dependency tree. Audit your lockfile and rotate tokens.</li>
+      <li><strong>Bun 1.4 shipped a full Rust rewrite</strong> and is already live on Vercel Functions. Node compatibility is much better, and it now replaces about fifteen npm packages with built-ins.</li>
+    </ol>
+  </div>
+
+  <section class="topic">
+    <h2>Your stack — React, React Native, Node, MongoDB</h2>
+
+    <div class="item">
+      <h3><a href="https://nextjs.org/blog/august-2026-security-release">Next.js August 2026 security release: two critical RCEs</a></h3>
+      <p>Vercel moved the release forward to Aug 25 after a second critical bug turned up. The first is in <code>libheif</code> via <code>sharp</code>: optimizing an attacker-supplied AVIF image can run code on your server, so the patch disables AVIF optimization entirely until upstream fixes it. The second (<a href="https://github.com/vercel/next.js/security/advisories/GHSA-p293-qw3h-jr36">CVE-2026-75604</a>) only affects Windows-hosted servers and has no workaround. Run <code>npm install next@16.3.3</code> or <code>next@15.5.24</code>.</p>
+      <a class="src" href="https://nextjs.org/blog/august-2026-security-release">Next.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.elastic.co/security-labs/shai-hulud-chaindrop-npm-supply-chain">ChainDrop worm: 444 npm packages, 2B monthly downloads</a></h3>
+      <p>A self-propagating worm compromised a maintainer account and poisoned 444 packages across 2,212 versions in under four hours — including <code>keyv</code> (150M weekly downloads), <code>flat-cache</code> and <code>file-entry-cache</code>. A <code>preinstall</code> hook downloads a Bun binary, runs an obfuscated stealer, harvests npm/GitHub/cloud/Vault credentials, then republishes with the stolen tokens. It even parks its command-and-control address in an Ethereum contract so blocklists cannot keep up. Practical steps: pin exact versions, run <code>npm ci --ignore-scripts</code> in CI, and treat any token used on an affected machine as burned.</p>
+      <a class="src" href="https://www.elastic.co/security-labs/shai-hulud-chaindrop-npm-supply-chain">Elastic Security Labs</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.csa.gov.sg/alerts-and-advisories/advisories/ad-2026-009/">Singapore CSA and The Register on the same worm</a></h3>
+      <p>The advisory confirms the attack is ongoing and that infected installs also tamper with Claude and VS Code config files — so an infected dev machine can keep leaking after you clean <code>node_modules</code>. The Register notes ChainDrop evades standard defenses because the payload never appears in the published tarball source.</p>
+      <a class="src" href="https://www.theregister.com/security/2026/08/15/chaindrop-worm-crawls-into-npm-supply-chain-evades-standard-defenses/5287958">The Register</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://bun.com/blog/bun-v1.4">Bun 1.4: rewritten in Rust, now on Vercel Functions</a></h3>
+      <p>Bun moved from Zig to Rust, closed 2,900+ issues, and passes 1,500 more Node compatibility tests. Idle CPU is 5x lower, memory up to 35% lower, Linux startup 50% faster. It also absorbs roughly fifteen npm packages as built-ins: <code>Bun.Image</code>, <code>Bun.markdown</code>, a cron scheduler, JSON5/JSONL, a PTY, and headless browser automation via <code>Bun.WebView</code>. <code>node:events</code>, <code>node:trace_events</code> and <code>node:sqlite</code> are at 100%; <code>node:http</code>, <code>node:fs</code> and <code>node:stream</code> sit near 97%. Upgrading is opt-in because there are breaking changes. <a href="https://vercel.com/changelog/bun-1-4-is-now-available-in-vercel-functions">Vercel Functions supports it now</a>.</p>
+      <a class="src" href="https://bun.com/blog/bun-v1.4">Bun blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://vercel.com/blog/introducing-vercel-for-slack">Vercel week: Slack agent, $1M sandbox bounty, JWT signing in Functions</a></h3>
+      <p>Three things worth knowing from Vercel's Aug 14–21 roundup. Vercel Agent now answers in Slack about deploys, builds, logs and metrics. <a href="https://vercel.com/changelog/sign-jwts-from-your-functions-without-managing-private-keys">Vercel KMS lets Functions sign JWTs</a> with managed asymmetric keys — no private key in env vars, the function authenticates with its OIDC token. And Vercel is <a href="https://vercel.com/blog/one-million-dollar-hacker-challenge-for-vercel-sandbox">paying $1M</a> to anyone who escapes Vercel Sandbox, the microVM layer they use to run untrusted AI-generated code.</p>
+      <a class="src" href="https://community.vercel.com/t/vercel-weekly-2026-08-24/48152">Vercel Community</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://reactnative.dev/blog/2026/08/11/react-native-0.87">React Native 0.87 (Aug 11) — plan the upgrade now</a></h3>
+      <p>Slightly older than this week, but it is the release you will hit next. The Strict TypeScript API is now the default and deep imports are deprecated, with types generated from source instead of hand-maintained. Metro 0.87 makes source map generation 2x faster on half the memory. Swift Package Manager support is experimental and opt-in; CocoaPods stays default. Minimums rise to Node 22, AGP 9 and Kotlin 2.0+ — the toolchain bump is the part that will cost you time.</p>
+      <a class="src" href="https://reactnative.dev/blog/2026/08/11/react-native-0.87">React Native blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.mongodb.com/company/newsroom/press-releases/mongo-db-announces-general-availability-of-new-capabilities-to-power-next-generation-apps">MongoDB automated embeddings are GA</a></h3>
+      <p>Atlas Vector Search can now generate embeddings for you with Voyage AI models, so a semantic search feature no longer needs a separate embedding pipeline in your Node service — you write documents, Atlas embeds them. There is also an Embedding and Reranking API and vector search inside Atlas Stream Processing.</p>
+      <a class="src" href="https://www.mongodb.com/company/newsroom/press-releases/mongo-db-announces-general-availability-of-new-capabilities-to-power-next-generation-apps">MongoDB newsroom</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>LLM app development</h2>
+
+    <div class="item">
+      <h3><a href="https://blog.modelcontextprotocol.io/posts/mcp-roadmap/">MCP publishes a new roadmap (Aug 22)</a></h3>
+      <p>The biggest signal for anyone building tools: the July spec removed protocol-level sessions and the init handshake, so an MCP server is now just an ordinary HTTP workload you can scale horizontally. The next five priority areas are agentic messaging (webhooks and channels so clients stop polling), unifying on one HTTP-native transport, agent identity via DPoP and workload identity federation instead of pasted API keys, better tool-result contracts, and progressive tool discovery — because a server with 100 tools makes the model pay for the whole surface up front and picks worse.</p>
+      <a class="src" href="https://blog.modelcontextprotocol.io/posts/mcp-roadmap/">MCP blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://vercel.com/changelog/cline-harness-adapter">AI SDK harness layer keeps adding agent runtimes</a></h3>
+      <p>The AI SDK's harness layer lets you drive established coding-agent runtimes through one interface, and it now speaks any Agent Client Protocol (ACP) harness — Cline landed this week. Useful if you want to swap agent frameworks without rewriting the app around them.</p>
+      <a class="src" href="https://vercel.com/changelog/cline-harness-adapter">Vercel changelog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://vercel.com/changelog/gpt-5-6-sol-is-50-off-on-ai-gateway-for-the-next-month">Inference prices keep falling; gateways make switching cheap</a></h3>
+      <p>GPT-5.6 Sol is 50% off on AI Gateway for a month and <a href="https://vercel.com/changelog/glm-5-3-now-available-on-ai-gateway">GLM 5.3 was added</a>. Vercel's own gateway index reported cost per token down 13.6% with DeepSeek passing Google on volume. The practical takeaway is to keep your model name in config, not in code.</p>
+      <a class="src" href="https://vercel.com/changelog/gpt-5-6-sol-is-50-off-on-ai-gateway-for-the-next-month">Vercel changelog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://releasebot.io/updates/anthropic/claude-code">Claude Code: permissions and stability pass</a></h3>
+      <p>This week's releases added an Auto mode tab in <code>/permissions</code> for editing auto-mode classifier rules, plus a startup warning when a Bash allow rule puts a wildcard before the subcommand — a real footgun if you have been writing loose allow rules. Also fixes across plugins, MCP and resume behavior.</p>
+      <a class="src" href="https://releasebot.io/updates/anthropic/claude-code">Releasebot</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.tommyz.blog/blog/github-trending-weekly-2026-08-17-to-2026-08-22">GitHub trending: the value moved to the scaffolding</a></h3>
+      <p>Trending repos this week are almost all agent scaffolding rather than models — harnesses, memory, guardrails, local gateways, and visual pipeline builders like Langflow, Dify and n8n. Worth skimming if you are deciding what to build yourself versus adopt.</p>
+      <a class="src" href="https://ossinsight.io/trending/ai">OSSInsight</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>AI models &amp; research</h2>
+
+    <div class="item">
+      <h3><a href="https://www.scmp.com/news/china/science/article/3360396/ai-homework-tools-cut-exam-scores-20-study-26000-chinese-students-finds">AI homework help raised grades, then cut exam scores 20%</a></h3>
+      <p>Stockholm University and the University of Hong Kong tracked 26,000+ students over 30 months. AI use lifted homework scores 18% and cut homework time from 64 to 45 minutes. Within six months monthly exam scores fell 20%; after two years, entrance exam results fell 24% (zhongkao) and 18% (gaokao). About 80% of AI users showed "homework outsourcing" — finishing fast and scoring high without learning. It was one of the week's most discussed items on HN, and the obvious parallel for developers is offloading the thinking rather than the typing.</p>
+      <a class="src" href="https://news.ycombinator.com/item?id=49357530">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://releasebot.io/updates/anthropic">Sonnet 5 introductory pricing becomes permanent</a></h3>
+      <p>The planned Sept 1 increase to $3/$15 per MTok is off; $2/$10 is now the standard price. If you were budgeting a jump for next month, you can drop it.</p>
+      <a class="src" href="https://releasebot.io/updates/anthropic">Releasebot</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://llmgateway.io/timeline">Model releases stayed incremental</a></h3>
+      <p>DeepSeek V4 Flash Vision shipped as an experimental release on Aug 21, following V4-Pro GA and Gemini 3.7 Flash earlier in the month. Nothing here changes an architecture decision — it mostly widens the cheap-and-fast tier.</p>
+      <a class="src" href="https://llmgateway.io/timeline">LLM Gateway</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>Industry &amp; broader tech</h2>
+
+    <div class="item">
+      <h3><a href="https://techstartups.com/2026/08/24/top-tech-news-today-august-24-2026-alibaba-amazon-hugging-face-nvidia-xpeng-more/">Short takes</a></h3>
+      <p>OpenAI started serving ChatGPT ads in 31 European markets on Aug 24, six months after the US launch. NVIDIA announced the Jetson Orin Nano 2 for entry-level edge AI on Aug 25. XPeng's robotics arm raised over $900M at a $6.3B valuation.</p>
+      <a class="src" href="https://techstartups.com/2026/08/24/top-tech-news-today-august-24-2026-alibaba-amazon-hugging-face-nvidia-xpeng-more/">Tech Startups</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="../index.html">All briefs</a>
+  </footer>
+
+</div>
+</body>
+</html>
