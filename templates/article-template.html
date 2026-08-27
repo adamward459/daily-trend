@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+  ARTICLE TEMPLATE — copy this into articles/YYYY-MM-DD.html and fill it in.
+
+  Required for the index build to pick it up correctly:
+    - <title>            becomes the entry title on the index page
+    - <meta name="description">  becomes the one-line summary on the index page
+    - <meta name="date">  ISO date (YYYY-MM-DD); falls back to the filename if missing
+
+  Keep the stylesheet link exactly as-is (relative path "../assets/style.css").
+  Do not inline styles here — make_artifact.py inlines them when publishing.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of Mon DD–DD, YYYY</title>
+<meta name="description" content="One sentence, under 20 words, on the biggest thing this week.">
+<meta name="date" content="YYYY-MM-DD">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="site-name" href="../index.html">← Daily Trend</a>
+    <h1>Week of Mon DD–DD, YYYY</h1>
+    <p class="dateline">Published Mon DD, YYYY</p>
+  </header>
+
+  <div class="lede">
+    <h2>Top 3 this week</h2>
+    <ol>
+      <li><strong>Headline.</strong> Why it matters to your stack, in one or two sentences.</li>
+      <li><strong>Headline.</strong> Why it matters.</li>
+      <li><strong>Headline.</strong> Why it matters.</li>
+    </ol>
+  </div>
+
+  <section class="topic">
+    <h2>Your stack — React, React Native, Node, MongoDB</h2>
+
+    <div class="item">
+      <h3><a href="https://example.com/real-url">Item headline goes here</a></h3>
+      <p>One to three sentences: what happened, and why it matters for the code you write.</p>
+      <a class="src" href="https://example.com/real-url">source name</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>LLM app development</h2>
+    <div class="item">
+      <h3><a href="https://example.com/real-url">Item headline</a></h3>
+      <p>Substance here.</p>
+      <a class="src" href="https://example.com/real-url">HN</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>AI models &amp; research</h2>
+    <div class="item">
+      <h3><a href="https://example.com/real-url">Item headline</a></h3>
+      <p>Substance here.</p>
+      <a class="src" href="https://example.com/real-url">source name</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>Industry &amp; broader tech</h2>
+    <div class="item">
+      <h3><a href="https://example.com/real-url">Item headline</a></h3>
+      <p>Substance here.</p>
+      <a class="src" href="https://example.com/real-url">source name</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="../index.html">All briefs</a>
+  </footer>
+
+</div>
+</body>
+</html>
