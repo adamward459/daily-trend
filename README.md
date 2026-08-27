@@ -1,8 +1,16 @@
 # Daily Trend
 
+**Live site: https://adamward459.github.io/daily-trend/**
+
 Weekly briefs on AI and web development, filtered for the MERN / React Native stack.
 
 Generated automatically by a scheduled Claude task every **Monday at ~7am**.
+
+Each brief is published at
+`https://adamward459.github.io/daily-trend/articles/YYYY-MM-DD.html`.
+
+> **Note:** the scheduled run commits but does not push — the sandbox has no
+> GitHub credentials. Run `git push` after a brief lands to make it live.
 
 ## Layout
 

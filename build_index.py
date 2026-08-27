@@ -21,6 +21,7 @@ ARTICLES = ROOT / "articles"
 INDEX = ROOT / "index.html"
 
 SITE_NAME = "Daily Trend"
+SITE_URL = "https://adamward459.github.io/daily-trend/"
 TAGLINE = "Weekly briefs on AI and web development, filtered for the MERN / React Native stack."
 
 FILENAME_DATE = re.compile(r"(\d{4}-\d{2}-\d{2})")
@@ -99,6 +100,7 @@ def render(entries: list[dict]) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(SITE_NAME)}</title>
 <meta name="description" content="{html.escape(TAGLINE)}">
+<link rel="canonical" href="{html.escape(SITE_URL)}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>\U0001f4e1</text></svg>">
 <link rel="stylesheet" href="assets/style.css">
 </head>
