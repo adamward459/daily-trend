@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of Sep 14–20, 2026</title>
+<meta name="description" content="Expo SDK 58 beta brings RN 0.88 and iOS 27; Node 26.9 adds Web Workers and node:bench.">
+<meta name="date" content="2026-09-21">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="site-name" href="../index.html">← Daily Trend</a>
+    <h1>Week of Sep 14–20, 2026</h1>
+    <p class="dateline">Published September 21, 2026</p>
+  </header>
+
+  <div class="lede">
+    <h2>Top 3 this week</h2>
+    <ol>
+      <li><strong>Expo SDK 58 beta is out, on React Native 0.88 and iOS 27.</strong> Expo Router data loaders and SSR are now stable, Android builds get much faster, and there are real breaking changes. Start testing now; the beta lasts three to four weeks.</li>
+      <li><strong>Node.js 26.9.0 is a big minor release.</strong> A built-in <code>node:bench</code> module, Web Workers, a virtual file system and FFI on by default. Not for production APIs yet (it is Current, not LTS), but it shows where Node is going.</li>
+      <li><strong>Claude Code now reads AGENTS.md — and its weekly limits went down.</strong> One instruction file can now serve Claude Code, Codex and Cursor. At the same time, the Sep 14 limit change works out to about 17% less usage than before.</li>
+    </ol>
+  </div>
+
+  <section class="topic">
+    <h2>Your stack — React Native, Node, React</h2>
+
+    <div class="item">
+      <h3><a href="https://expo.dev/changelog/sdk-58-beta">Expo SDK 58 beta: React Native 0.88, iOS 27, stable Router loaders</a></h3>
+      <p>SDK 58 moves from React Native 0.86 to 0.88 and is built for iOS 27 (scene-based lifecycle, resizable apps). Expo Router data loaders, server-side rendering and native tabs are now stable. A prebuilt <code>expo-modules-core</code> roughly halves Android build times, a new Rust transformer gives about 2× faster cold bundling, and <code>expo-widgets</code> now supports Android. There is also <code>expo-app-intents</code> to expose app actions to Siri, and an Expo Modules 2.0 beta with 2.5–5.6× faster synchronous calls.</p>
+      <p>Plan for the breaking changes: iOS needs the scene-lifecycle migration, the strict TypeScript API is now the default, some <code>expo-router</code> APIs moved or were removed, R8 shrinking is on by default for Android release builds, and <code>File.write()</code> in <code>expo-file-system</code> is now async. Try it with <code>npx expo install expo@next --fix</code> on a branch.</p>
+      <a class="src" href="https://expo.dev/changelog/sdk-58-beta">Expo changelog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://github.com/facebook/react-native/releases">React Native 0.88.0-rc.1 syncs React 19.3; iOS 27 ships</a></h3>
+      <p>RC1 (Sep 16) moves React Native to React 19.3.0, so View Transitions and Fragment Refs from last week's React release reach mobile. It also turns on a web-style event dispatching refactor and, in canary, <code>addEventListener</code>/<code>dispatchEvent</code> on native view refs. Codegen no longer crawls <code>node_modules</code> on iOS.</p>
+      <p>Apple shipped iOS 27 to the public on Sep 14, so users are upgrading now. If you still target an older SDK, test your current production build on iOS 27 devices this week.</p>
+      <a class="src" href="https://github.com/facebook/react-native/releases">GitHub releases</a> <a class="src" href="https://www.apple.com/newsroom/2026/09/major-updates-for-apples-software-platforms-are-now-available/">Apple Newsroom</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://nodejs.org/en/blog/release/v26.9.0">Node.js 26.9.0: node:bench, Web Workers, VFS, FFI by default</a></h3>
+      <p>A new built-in <code>node:bench</code> module (with a <code>--experimental-bench</code> CLI flag) gives you benchmarking with histograms and confidence intervals, without a third-party library. Web Workers are now supported, a virtual file system plugs into both CommonJS and ESM loaders (including mounting ZIP files), and the FFI module is enabled by default. Crypto gains a generic MAC API.</p>
+      <p>There are also fixes for WebStream adapters, HTTP/2 write deadlocks and faster <code>fs.cp()</code>. For Express APIs in production, stay on 24.x LTS; use 26.9 to try <code>node:bench</code> on hot paths.</p>
+      <a class="src" href="https://nodejs.org/en/blog/release/v26.9.0">Node.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://strix.ai/blog/baseten-harbor-github-pat-takeover">A GitHub token left in a Docker image gave admin access to Baseten's repos</a></h3>
+      <p>Researchers pulled a public Docker image, found a GitHub personal access token in its build history, and it still had admin rights on product and deploy repos — three years after the build. The cause: the token was passed as a <code>--build-arg</code> to install private npm dependencies. If your Node Dockerfiles do this, switch to BuildKit secret mounts, check old images with <code>docker history --no-trunc</code>, and rotate the token.</p>
+      <a class="src" href="https://strix.ai/blog/baseten-harbor-github-pat-takeover">Strix blog</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-15">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.androidauthority.com/grapheneos-android-17-qpr1-security-patches-comments-3712218/">Android shipping gets slower and more closed</a></h3>
+      <p>Two signals for React Native developers. Google Play reviews now regularly take more than a week, even for long-running apps, so leave more buffer before a release date. And GrapheneOS reports that Android 17 QPR1 added new APIs without publishing them to AOSP, which could make some features Pixel-first.</p>
+      <a class="src" href="https://gultsch.social/@daniel/117280438824908947">HN / Mastodon</a> <a class="src" href="https://www.androidauthority.com/grapheneos-android-17-qpr1-security-patches-comments-3712218/">Android Authority</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>LLM app development</h2>
+
+    <div class="item">
+      <h3><a href="https://runtimewire.com/article/claude-code-adds-agents-md-support">Claude Code reads AGENTS.md; weekly limits drop about 17%</a></h3>
+      <p>Claude Code v2.1.277 (Sep 18) falls back to <code>AGENTS.md</code> when a repo has no <code>CLAUDE.md</code>. <code>CLAUDE.md</code> still wins if both exist, and you can change the mode under "Project instructions" in <code>/config</code>. Practical result: keep one <code>AGENTS.md</code> for Claude Code, Codex and Cursor instead of copies that drift apart. The same week also added per-command domain allowlists and MCP Streamable HTTP timeout fixes.</p>
+      <p>The less good news: from Sep 14, weekly limits are 25% above the old baseline, but the temporary 50% boost ended. Compared with last week, that is about a 17% cut, which Anthropic confirmed after a confusing first announcement.</p>
+      <a class="src" href="https://runtimewire.com/article/claude-code-adds-agents-md-support">RuntimeWire</a> <a class="src" href="https://dev.to/aicoding-guide/this-week-in-claude-code-codex-and-gemini-cli-week-of-september-20-2026-2fg1">DEV</a> <a class="src" href="https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-is-cutting-claude-codes-current-weekly-limits-by-17-percent/">BleepingComputer</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://harnesstax.github.io/">HarnessTax: how much does the agent harness matter?</a></h3>
+      <p>A study of 21 model–harness pairs (seven models, three harnesses: Claude Code, Codex CLI and Pi) on SWE-bench Lite and Terminal-Bench 2.0. The headline claim is that a heavy harness does not always pay for its extra tokens and cost — "your Claude models may not need Claude Code." Useful if you are deciding between a big agent framework and a thin loop of your own.</p>
+      <a class="src" href="https://harnesstax.github.io/">HarnessTax</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-17">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.marktechpost.com/2026/09/15/google-releases-gemini-3-8-live-and-3-8-live-extended-thinking-for-production-grade-voice-agents/">Gemini 3.8 Live: voice agents that reason while they talk</a></h3>
+      <p>Google released Gemini 3.8 Live and a Live Extended Thinking variant on the Gemini Live API. The thinking model reasons in the background and keeps talking, and both support asynchronous tool calls and 97 languages. Pricing is about $0.005/min audio in and $0.018/min out. Vercel, LiveKit, Pipecat and LangChain are launch partners, so it should plug into an existing Node or React voice app quickly.</p>
+      <a class="src" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-8-live-gemini-3-8-live-extended-thinking/">Google blog</a> <a class="src" href="https://www.marktechpost.com/2026/09/15/google-releases-gemini-3-8-live-and-3-8-live-extended-thinking-for-production-grade-voice-agents/">MarkTechPost</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.marktechpost.com/2026/09/18/alibaba-qwen-releases-qwen3-8-omni-flash/">Qwen3.8-Omni-Flash: cheap 1M-context multimodal API</a></h3>
+      <p>Takes text, images, audio and video; returns text. 1M-token context, function calling and structured outputs, at $0.15 per million input and $0.47 per million output tokens. API-only — no open weights. A strong budget option for apps that summarize video or audio.</p>
+      <a class="src" href="https://www.marktechpost.com/2026/09/18/alibaba-qwen-releases-qwen3-8-omni-flash/">MarkTechPost</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-18">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev: a model that returns typed decisions, not text</a></h3>
+      <p>New lab TypeSafe AI launched "System One" models: state goes in, a typed value with a confidence score comes out, in 70–500 ms. The pitch is classification, routing and extraction with zero schema errors, at $0.042 per million input tokens and free output. Early access only, and the claims are the vendor's own. Worth watching if much of your LLM usage is "pick one of these labels."</p>
+      <a class="src" href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe blog</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-15">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://github.com/cloudflare/security-audit-skill">Agent skills trend: Cloudflare's security-audit skill and OpenSpec</a></h3>
+      <p>Cloudflare open-sourced a coding-agent skill that runs a six-phase security audit, with one strict rule: the agent that checks a finding is never the agent that found it. It covers web auth, prompt injection, supply chain and cloud config. OpenSpec (MIT) is a spec-first workflow — propose, apply, verify, archive — that works across Claude Code, Codex, Cursor and more. Both are good templates for structuring your own agent workflows.</p>
+      <a class="src" href="https://github.com/cloudflare/security-audit-skill">GitHub</a> <a class="src" href="https://openspec.dev/">OpenSpec</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>AI models &amp; research</h2>
+
+    <div class="item">
+      <h3><a href="https://prismml.com/news/bonsai-2-27b">Bonsai 2 27B: a ternary model that keeps 98% quality at 5.9 GB</a></h3>
+      <p>PrismML compressed Qwen3.8 27B to ternary weights (about 1.76 bits per weight). It keeps 98.2% of the original benchmark score, fits in 5.9 GB, and runs at 143 tok/s on an RTX 5090 and 47 tok/s on an M5 Max. Apache 2.0. A related arXiv paper, "Breaking the 1.58-bit Barrier," was also on the HN front page. Strong local models on a laptop are getting real.</p>
+      <a class="src" href="https://prismml.com/news/bonsai-2-27b">PrismML</a> <a class="src" href="https://arxiv.org/abs/2609.16338">arXiv</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://rohanbansal.com/qorl">A 4B model that writes faster Postgres query plans</a></h3>
+      <p>One developer fine-tuned Qwen 3.8 4B with LoRA on frontier-model traces, then used RL with real query timings as the reward. On 113 join-heavy queries it cut latency by 44.7%. A clear example of the "small model, narrow task, measurable reward" pattern.</p>
+      <a class="src" href="https://rohanbansal.com/qorl">Blog</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-16">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://openai.com/index/astra-for-law/">OpenAI Astra for Law</a></h3>
+      <p>GPT-6 Astra plus a legal search index and 26 plugins, for selected law firms; API model <code>gpt-6-astra-law</code> is "coming soon." A sign of vertical models built on one frontier base.</p>
+      <a class="src" href="https://openai.com/index/astra-for-law/">OpenAI</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>Industry &amp; broader tech</h2>
+
+    <div class="item">
+      <h3><a href="https://buchodi.com/chatgpt-now-knows-what-you-do-on-other-websites-via-ad-collector/">ChatGPT's ad cookie links browsing to your account</a></h3>
+      <p>A researcher found that OpenAI's ad pixel, embedded on advertiser sites, sends an <code>__obi</code> cookie that ties browsing to ChatGPT accounts. OpenAI has not given a real answer yet. Worth knowing before you add OpenAI's pixel to a client site.</p>
+      <a class="src" href="https://buchodi.com/chatgpt-now-knows-what-you-do-on-other-websites-via-ad-collector/">Blog</a> <a class="src" href="https://news.ycombinator.com/front?day=2026-09-20">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://blog.cloudflare.com/accountable-mixed-use-ai-crawlers/">Cloudflare: stay in search, block AI training</a></h3>
+      <p>New controls let site owners allow search crawling while blocking AI training bots. Cloudflare also shipped per-Worker access roles for teammates and agents.</p>
+      <a class="src" href="https://blog.cloudflare.com/accountable-mixed-use-ai-crawlers/">Cloudflare blog</a> <a class="src" href="https://blog.cloudflare.com/workers-granular-authorization/">Cloudflare blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.mistral.ai/news/mistral-x-mozilla/">Mistral models come to Firefox</a></h3>
+      <p>Firefox's Smart Window assistant will use Mistral models, starting in France and North America.</p>
+      <a class="src" href="https://www.mistral.ai/news/mistral-x-mozilla/">Mistral</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="../index.html">All briefs</a>
+  </footer>
+
+</div>
+</body>
+</html>
