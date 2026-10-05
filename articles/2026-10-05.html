@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of Sep 28 – Oct 4, 2026</title>
+<meta name="description" content="Next.js ships seven security fixes, and a React-specialised coding model lands at a fraction of frontier prices.">
+<meta name="date" content="2026-10-05">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="site-name" href="../index.html">← Daily Trend</a>
+    <h1>Week of Sep 28 – Oct 4, 2026</h1>
+    <p class="dateline">Published October 5, 2026</p>
+  </header>
+
+  <div class="lede">
+    <h2>Top 3 this week</h2>
+    <ol>
+      <li><strong>Next.js patched seven vulnerabilities on September 30.</strong> One high-severity SSRF in image optimization, plus four cache-poisoning and content-leak issues. Self-hosted apps are the most exposed. Upgrade to 16.3.8 or 15.5.27 — this is the one item to act on today.</li>
+      <li><strong>Callstack shipped Apex, a coding model trained on the React ecosystem.</strong> $0.50/$3.00 per million tokens, against $0.09 and 2m16s for a code review that cost Opus 5.5 $0.60 and 13m30s. A cheap specialist model for RN and Next.js work is a new option in your tooling.</li>
+      <li><strong>Three frontier labs released a mid-tier model in seven days, all priced $2/$10.</strong> Gemini 4 Argon, GPT-6.1 Sol and Claude Sonnet 5.5 now sit at the same price with near-flagship coding scores. The expensive tier is becoming the exception, not the default.</li>
+    </ol>
+  </div>
+
+  <section class="topic">
+    <h2>Your stack — React, React Native, Node, MongoDB</h2>
+
+    <div class="item">
+      <h3><a href="https://nextjs.org/blog/september-2026-security-release">Next.js September 2026 security release: 7 CVEs, patch now</a></h3>
+      <p>The high-severity one is an SSRF in Image Optimization (CVE-2026-94483) — reachable only if you configure <code>images.remotePatterns</code>, but then an allow-listed remote URL can be pointed at private IP ranges. Four medium issues are cache poisoning and cross-user content leaks in SSG/ISR and <code>'use cache'</code>, and these hit <strong>self-hosted apps specifically</strong>: Vercel deployments are not affected by the Pages Router one. There is also a low-severity hole in the <code>next dev</code> MCP endpoint that lets any website you visit read your project path, source snippets and route inventory.</p>
+      <p>Fix: <code>npm install next@16.3.8</code> (Active LTS) or <code>next@15.5.27</code> (Maintenance LTS).</p>
+      <a class="src" href="https://nextjs.org/blog/september-2026-security-release">Next.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.callstack.com/blog/apex-agetic-coding-for-mobile-and-web-spcialied-in-react">Callstack released Apex, an agentic coding model specialised in React</a></h3>
+      <p>Callstack — React Native core contributors — trained a model on the RN ecosystem: docs, source, public APIs and real repository conversations. They claim frontier-level results on React Native evaluations across navigation, animations, async state and lists. In a recorded code review on the Expensify repo, Apex finished in 2m16s for $0.09 where Claude Opus 5.5 took 13m30s for $0.60.</p>
+      <p>Pricing is $0.50 per million input, $0.20 cached, $3.00 output — well under the general-purpose frontier models. Access is via the API at apex.callstack.com, with <code>npx @callstack/apex init</code> for setup, Vercel AI Gateway coming, and self-hosting available. Worth a side-by-side on your own RN code before trusting the benchmark; a narrow model that is 6× faster and 85% cheaper on routine review and test-writing is a real change to how you'd budget agent work.</p>
+      <a class="src" href="https://www.callstack.com/blog/apex-agetic-coding-for-mobile-and-web-spcialied-in-react">Callstack blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://newsletter.pragmaticengineer.com/p/shopify-native-mobile">Shopify dropped React Native for Swift and Kotlin</a></h3>
+      <p>Shopify rewrote the Shop app in native code in 12 weeks, and the Shopify app migration is underway. The stated reason is not that React Native failed — they were hitting sub-500ms P75 screen loads and &gt;99.9% crash-free sessions. It is that AI agents removed the cost that justified cross-platform: Head of Mobile Mustafa Ali says agents "can now do enough of the implementation, translation, testing, and review work that it's no longer the deciding factor."</p>
+      <p>Read this as an economics argument, not a technical verdict on RN. It only holds at Shopify's scale, with two platform teams' worth of native expertise to supervise the agents. For a smaller team, one codebase is still one codebase. But the argument will come up in planning discussions, so it is worth knowing the actual numbers behind it.</p>
+      <a class="src" href="https://newsletter.pragmaticengineer.com/p/shopify-native-mobile">Pragmatic Engineer</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.constellationr.com/insights/news/mongodb-launches-atlas-agent-engine-atlas-infinite-mongodb-90-goes-ga">MongoDB 9.0 goes GA, plus Atlas Agent Engine and Atlas Infinite in preview</a></h3>
+      <p>MongoDB 9.0 brings up to 35% faster find queries and 30% faster updates, and extends Queryable Encryption to prefix, suffix and substring search on encrypted fields. Atlas Agent Engine (public preview) is a managed agent runtime with four memory types — semantic, episodic, taxonomic, procedural — and least-privilege auth, model- and framework-agnostic, using Voyage AI for retrieval. Atlas Infinite separates compute from storage and claims 189% more performance per dollar on I/O-heavy workloads.</p>
+      <p>The Agent Engine piece is the interesting one if you are hand-rolling agent memory on top of Mongoose today. It is in preview and available to all Atlas customers without a new contract, so it is cheap to evaluate against your own schema before committing.</p>
+      <a class="src" href="https://www.constellationr.com/insights/news/mongodb-launches-atlas-agent-engine-atlas-infinite-mongodb-90-goes-ga">Constellation Research</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>LLM app development</h2>
+
+    <div class="item">
+      <h3><a href="https://blog.cloudflare.com/clef-decision-models/">Small "decision models" became a real category this week</a></h3>
+      <p>Two releases in the same week point at the same idea: stop using a chat model for classification. Cloudflare open-sourced <strong>Clef</strong> and <strong>Clef-flash</strong> on Hugging Face under Apache 2.0 — typed outputs with probabilities instead of free text, 38.8ms median latency for flash and 209.3ms for the larger one, a 64k context, and a vision encoder. They are served through Workers AI over REST and are Jev-API compatible. Separately, <a href="https://github.com/firelex/jeff">Jeff</a> is a 0.8B open model (MIT code, Apache 2.0 weights) doing one forward pass per decision with a fitted temperature for calibration: 22ms on an RTX PRO 6000, 28ms on an M4 Max, and ~41MB LoRA adapters you can train for a specific task in half an hour to four hours on one GPU.</p>
+      <p>The practical pattern is routing: Jeff's authors report it handling 87.7% of decisions alone with a 27B fallback, 38× faster overall. If your Express routes call an LLM for triage, intent detection or moderation, this is the week's most directly applicable idea — those calls are classification, and you are paying generation prices and generation latency for them.</p>
+      <a class="src" href="https://blog.cloudflare.com/clef-decision-models/">Cloudflare blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://earendil.com/posts/you-said-no-mcp/">Earendil reversed its position on MCP and shipped "Codemode"</a></h3>
+      <p>Earendil, who had publicly opposed MCP, now support it in <a href="https://earendil.com/posts/pi-1-0/">Pi 1.0</a> (MIT licensed). Their diagnosis of what is still wrong is the useful part: most MCP servers dump tools and return text optimised for token count, which composes badly. They argue MCP should sit closer to OpenAPI — structured returns, and tool discovery driven by documentation. Codemode is their answer: a JavaScript sandbox in the trusted harness that orchestrates tool calls statefully, so an agent can combine several tool outputs without spending context on the intermediate results.</p>
+      <p>If you are building agents on MCP, the composition problem described here is one you will hit. Pi 1.0 also ships deferred tool loading and Anthropic cache optimisation, both worth reading as implementation patterns regardless of whether you use the harness.</p>
+      <a class="src" href="https://earendil.com/posts/you-said-no-mcp/">Earendil</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/">Simon Willison: we need default hard budget caps on everything</a></h3>
+      <p>The argument is that coding agents have removed the friction from deploying things that can run up a bill, so a warning email is no longer an adequate guardrail — services should hard-pause on budget exhaustion, with unlimited spend as a deliberate opt-in. He notes AWS shipped spending limits in September 2026 and Google Cloud added Spend Caps in July.</p>
+      <p>Concrete takeaway for anyone running LLM calls from a Node backend: set the provider-side spend cap today, not the alert. An agent loop that retries on a malformed response will find the bug you did not test for.</p>
+      <a class="src" href="https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/">simonwillison.net</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://github.com/ninjahawk/livenerf">livenerf: an actual methodology for testing whether a model got worse</a></h3>
+      <p>922 points on HN for a benchmark that tries to settle the "has it been nerfed" question properly. It calibrates to 78 items (from 2,336 candidates across GPQA Diamond, MMLU-Pro and competition maths) where Opus 5.5 scores 50–70%, runs the same panel against its own baseline daily, and uses a control arm on Opus 5 so that infrastructure changes can be distinguished from model changes. It pre-registers its statistics and requires 99% CIs across two consecutive 10-day windows before declaring a change.</p>
+      <p>No verdict yet — 6 of 30 baseline days were in at time of writing. Useful anyway: the author found that reduced effort shows up in token counts before it shows up in accuracy, which is a cheap signal you can log yourself if you depend on consistent model behaviour in production.</p>
+      <a class="src" href="https://github.com/ninjahawk/livenerf">GitHub / HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://openai.com/index/introducing-dots/">OpenAI's Dots, and DeepSeek's open-source agent desktop</a></h3>
+      <p><a href="https://openai.com/index/introducing-dots/">Dots</a> are always-on agents on GPT-6 Astra, each with its own cloud computer, connecting to 4,000+ apps and doing read-only background research; one is included with Pro and Business Premium. It is a consumer/workplace product — no developer API documented — but it sets the expectation your users will bring to your app. On the other side, <a href="https://www.deepseek.com/en/harness/">DeepSeek Harness Desktop</a> is a free, MIT-licensed agent platform for macOS and Windows with an "everything is a plugin" architecture and a web UI via <code>npx @deepseek-ai/dsh web</code> — a readable open codebase if you want to see how a production agent harness handles execution traces and tool-call debugging.</p>
+      <a class="src" href="https://openai.com/index/introducing-dots/">OpenAI / DeepSeek</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>AI models &amp; research</h2>
+
+    <div class="item">
+      <h3><a href="https://openai.com/index/introducing-gpt-6-1-sol/">The $2/$10 mid-tier: Gemini 4 Argon, GPT-6.1 Sol and Sonnet 5.5 all landed in one week</a></h3>
+      <p>All three arrived within seven days at the same headline price of $2 per million input and $10 per million output. <a href="https://openai.com/index/introducing-gpt-6-1-sol/">GPT-6.1 Sol</a> matches Astra on DeepSWE v1.1 at a fifth of Astra's price, beats the previous Sol by 6.4 points on it, scores 7 points higher on OSWorld 2.0, and cuts factuality errors ~32% at low reasoning effort; cached input is $0.10. <a href="https://www.anthropic.com/claude-sonnet-5-5">Claude Sonnet 5.5</a> (Sept 28) runs 30%+ faster than Sonnet 5, jumps to 70.6% on Terminal-Bench 4.0 from 10.3%, nearly matches Opus 5.5 on GDPval-AA, and costs up to 30% less per task by using fewer output tokens. <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Gemini 4 Argon</a> is the outlier: 77.9% on DeepSWE v1.1, a 1M-token <em>output</em> limit (up from 64K), 95% cached-input discount, and a security focus — 68% on CWE-bench v1, autonomously finding and patching vulnerabilities — but it is gated behind the Fairwind program plus paid API and AI Ultra.</p>
+      <p>For your purposes the pattern matters more than the individual scores: a model good enough for most coding and agent work now costs $2/$10, and per-task cost is falling faster than per-token price because these models spend fewer output tokens. If you picked a model tier six months ago, the arithmetic has changed.</p>
+      <a class="src" href="https://openai.com/index/introducing-gpt-6-1-sol/">OpenAI / Anthropic / Google</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://tej.as/blog/aleph-alpha-kolibri">Kolibri: a 78B MoE under Apache 2.0, with 3.46B active per token</a></h3>
+      <p>Aleph Alpha released Kolibri on October 3 — 78.1B total parameters, 6 of 384 experts active per token across 50 layers, a native 262,144-token context tested to ~1M, and Apache 2.0. German and English only, with a UniBPE tokenizer needing 11.2% fewer tokens for German than GPT-5's, sliding-window attention on 40 layers with every fifth layer global, selectable reasoning effort, and abstention training (Merlin-Arthur) so it says it does not know instead of inventing. "Sovereign" here means built and trained in Germany and Finland under European law.</p>
+      <p>The architecture is the lesson even if you never use it: 3.46B active parameters at 78B quality is the direction self-hostable models are heading.</p>
+      <a class="src" href="https://tej.as/blog/aleph-alpha-kolibri">tej.as</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://github.com/Niko1221/Strata">Strata runs a 125B model on a single consumer GPU</a></h3>
+      <p>An MIT-licensed inference engine that gets Qwen3.8-Flash-Next (125B) onto a gaming PC by splitting the work: hot expert layers on the GPU, the full model in RAM, the remainder on CPU, lookup tables on SSD, plus speculative decoding ("guess and check") for a 1.6–1.8× latency win. Needs 12GB+ VRAM, 32GB RAM (64GB recommended) and ~80GB disk; roughly 94 tok/s at Q2_0 on an RTX 5070. One-click install on Windows and Linux, and it serves OpenAI- and Anthropic-compatible APIs locally.</p>
+      <p>That last detail is the useful one: you can point an existing SDK client at localhost and test your app against a local model without changing your code.</p>
+      <a class="src" href="https://github.com/Niko1221/Strata">GitHub / HN</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>Industry &amp; broader tech</h2>
+
+    <div class="item">
+      <h3><a href="https://calnewport.com/its-time-to-investigate-the-ai-labs/">Pressure on the labs: Newport calls for a Congressional investigation</a></h3>
+      <p>Cal Newport argues that OpenAI and Anthropic shaped public perception of AI risk and then lobbied for rules favouring their own position, and asks Congress to examine three things: specificity about which systems are actually risky, internal safety procedures, and how the labs' futurist beliefs drive research speed. It landed the same week as an Atlantic piece by a departing OpenAI safety researcher titled "I quit OpenAI because its culture is broken," which drew 790 comments on HN — among the week's most-discussed threads.</p>
+      <a class="src" href="https://calnewport.com/its-time-to-investigate-the-ai-labs/">calnewport.com</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://blog.alexewerlof.com/p/coding-is-not-solved">"Coding is not solved" — 584 points, 544 comments</a></h3>
+      <p>Alex Ewerlöf's argument is that "coding is solved" confuses code generation with software engineering, and that the expensive parts — scalability, security, reliability, maintenance — are untouched by cheap generation. His sharpest point: you cannot be accountable for what you do not understand, and only humans can carry that accountability. A useful counterweight to read next to the Shopify item above.</p>
+      <a class="src" href="https://blog.alexewerlof.com/p/coding-is-not-solved">blog.alexewerlof.com</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://blog.gitbutler.com/git-3-sha-256">Git 3.0's SHA-256 default is contested</a></h3>
+      <p>Scott Chacon argues the switch solves a theoretical problem at real ecosystem cost: submodules break across hash formats, every 40-character hash in your docs and chat history becomes obsolete, converting a repo breaks GPG signatures, and hosts would need parallel SHA-1 and SHA-256 mirrors. He proposes independent tree-hash headers in signed commits instead. Worth knowing before you create a repo on Git 3.0 and cannot push it to an existing remote.</p>
+      <a class="src" href="https://blog.gitbutler.com/git-3-sha-256">GitButler blog</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="../index.html">All briefs</a>
+  </footer>
+
+</div>
+</body>
+</html>
