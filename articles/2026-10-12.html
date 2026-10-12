@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of Oct 5–11, 2026</title>
+<meta name="description" content="Zod and two sibling repos were backdoored, and Next.js 16.4 makes Cache Components the default.">
+<meta name="date" content="2026-10-12">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="site-name" href="../index.html">← Daily Trend</a>
+    <h1>Week of Oct 5–11, 2026</h1>
+    <p class="dateline">Published Oct 12, 2026</p>
+  </header>
+
+  <div class="lede">
+    <h2>Top 3 this week</h2>
+    <ol>
+      <li><strong>Zod, nub and standard-schema repos were backdoored.</strong> Malicious install hooks were pushed into three GitHub repos you probably depend on. Only one npm publish got through, and npm blocked it — but check your lockfiles and consider installing with <code>--ignore-scripts</code>.</li>
+      <li><strong>Next.js 16.4 recommends Cache Components for every app.</strong> New <code>create-next-app</code> projects enable it by default, and it becomes the default in Next.js 17. A separate out-of-band security patch for two Critical CVEs lands Oct 14.</li>
+      <li><strong>Claude Haiku 5.5 cuts small-model prices by about 75%.</strong> $0.10 in / $0.50 out per million tokens, with large benchmark jumps. High-volume LLM features — classification, summarization, extraction — got a lot cheaper to run.</li>
+    </ol>
+  </div>
+
+  <section class="topic">
+    <h2>Your stack — React, React Native, Node, MongoDB</h2>
+
+    <div class="item">
+      <h3><a href="https://github.com/orgs/community/discussions/208477">Malicious commits landed in the zod, nub and standard-schema repos</a></h3>
+      <p>Someone pushed a loader plus npm <code>preinstall</code> hooks into all three repositories on Sept 21. The code read a delivery address from an Ethereum smart contract, downloaded remote JavaScript, and ran it with the installer's permissions. Only <code>@nubjs/nub@0.9.4</code> reached npm's pipeline, where static scanning flagged it as High risk and blocked it before it was installable; the <code>zod</code> and <code>standard-schema</code> changes never got published. The story only reached wide attention this week, and a zod maintainer disputes parts of the advisory — he says a git push credential was compromised, not an npm or GitHub token, and that zod's trusted publishing worked as designed. Practical takeaway: audit your lockfiles for <code>@nubjs/nub</code> 0.9.4, and if you install from git rather than the registry, review those commits.</p>
+      <a class="src" href="https://github.com/orgs/community/discussions/208477">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://nextjs.org/blog/next-16-4">Next.js 16.4: Cache Components now recommended for every app</a></h3>
+      <p>Vercel says the gaps that held Cache Components back are closed, so <code>'use cache'</code> is now the recommended model for all Next.js apps and is on by default in new <code>create-next-app</code> projects. It becomes the default in Next.js 17. Two new APIs give finer control: <code>ensureStatic</code> fails the build if a dynamic component sneaks into a route you want fully static, and <code>await navigation()</code> / <code>await prefetch()</code> let you exclude expensive cached content from a prefetch so it only loads on real navigation. The release also ships React 19.3 (stable View Transitions and Fragment Refs), a Turbopack disk cache 20–25% smaller, lazy server HMR, and shorter CSS Module class names plus export mangling for smaller production bundles.</p>
+      <a class="src" href="https://nextjs.org/blog/next-16-4">Next.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://nextjs.org/blog/upcoming-nextjs-security-update-october-2026">Next.js will ship an out-of-band security patch on Oct 14</a></h3>
+      <p>Vercel pre-announced three upstream dependency vulnerabilities — two Critical, one High — with the fix landing Wednesday Oct 14. Two of them were postponed from the September security release because of upstream coordination. Advisories and affected versions come with the patch, so plan an upgrade window. Separately, 16.4 adds <code>experimental.agentUpgrade</code>, which nudges you or your coding agent when a security-relevant upgrade is available.</p>
+      <a class="src" href="https://nextjs.org/blog/upcoming-nextjs-security-update-october-2026">Next.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://nodejs.org/en/blog/release/v26.11.0">Node.js 26.11.0 adds header validators and Buffer.stringLength()</a></h3>
+      <p>Two additions are immediately useful in Express code: <code>http.isValidHeaderName()</code> and <code>http.isValidHeaderValue()</code> let you check headers without a try/catch around a throwing setter, and <code>Buffer.stringLength()</code> gives you the byte length of a string without allocating a Buffer — handy for request size limits and token budgeting. <code>process.ref</code>/<code>unref</code> graduated to stable, <code>http2</code> gained a <code>connectionWindowSize</code> option, and Alpine moved to tier 2 support. One upgrade trap: <code>DatabaseSync</code> and <code>StatementSync</code> in the built-in <code>sqlite</code> module were renamed, so check your imports if you use it.</p>
+      <a class="src" href="https://nodejs.org/en/blog/release/v26.11.0">Node.js blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://deno.com/blog/cloudflare">Cloudflare acquired Deno; the runtime and Deploy are winding down</a></h3>
+      <p>The whole Deno team joins Cloudflare to work on Workers and Durable Objects instead. The Deno runtime gets one more year of monthly bug and security releases, then Cloudflare stops developing it — it stays open source for anyone who wants to continue it. Deno Deploy shuts down in six months, with migration help to Workers for paying customers. JSR keeps running, with its infrastructure moving to Cloudflare. If you use Deno anywhere in tooling or scripts, this is a real timeline; Node remains the safe default for MERN work. It was the week's most-discussed story on HN with roughly 1,340 points and 690 comments.</p>
+      <a class="src" href="https://deno.com/blog/cloudflare">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://expo.dev/changelog/native-crash-reporting-in-eas-observe">Expo's EAS Observe now captures native crashes; React Native 0.88 hits rc.4</a></h3>
+      <p>EAS Observe previously saw only JavaScript errors, which miss the crashes that come from native modules — exactly the ones hardest to reproduce. Native crash reporting needs <code>57.0.21</code> or later on SDK 57. Meanwhile React Native 0.88 reached rc.4 on Oct 7 and is still not stable; 0.87.1 remains the latest release, so there is no reason to rush an upgrade yet.</p>
+      <a class="src" href="https://expo.dev/changelog/native-crash-reporting-in-eas-observe">Expo changelog</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>LLM app development</h2>
+
+    <div class="item">
+      <h3><a href="https://www.anthropic.com/claude-haiku-5-5">Claude Haiku 5.5: about 75% cheaper, and far more capable</a></h3>
+      <p>Pricing drops to $0.10 per million input tokens and $0.50 output for prompts under 100k (from $1.00 / $5.00 on Haiku 4.5), with cache reads at $0.01. The benchmark gaps are large, not incremental: OSWorld 2.1 went from 15.7% to 72.4%, Terminal-Bench 4.0 from 0.0% to 39.2%, Humanity's Last Exam from 10.2% to 45.9% without tools. It is the first Haiku with an adjustable effort setting, so you can trade cost for quality per call. Sonnet 5.5 cache reads were also halved to $0.10. For your apps, the practical shift is that work you previously routed to a mid-tier model — classification, extraction, summarization, document compaction, cheap subagents — now fits in a small model's budget. Anthropic still points to Sonnet or Opus for complex agentic coding.</p>
+      <a class="src" href="https://www.anthropic.com/claude-haiku-5-5">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://openai.com/index/gpt-6-for-everyone/">GPT-6 rolls out in ChatGPT with "Intelligent UI"</a></h3>
+      <p>Paid tiers get GPT-6 Sol, free and Go tiers get GPT-6 Luna. The interesting part for builders is Intelligent UI: responses can include buttons, forms, charts, calculators and small interactive tools, rendered by a library of native streamable components plus a compiler that builds the interface as the model generates it. OpenAI also says the model can start answering while still reasoning — 44% faster to first token on search-backed questions than GPT-5.6 Instant. The announcement is consumer-only; no API, pricing, or component library for developers yet. Still worth watching, because generative UI is the obvious next pattern for React chat interfaces.</p>
+      <a class="src" href="https://openai.com/index/gpt-6-for-everyone/">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://cactuscompute.com/blog/whistle">Whistle: usable speech-to-text in a 16.9 MB file</a></h3>
+      <p>Cactus shipped an open on-device ASR model that is 16.9 MB against Whisper base's 145 MB, runs on CPU with no dependencies, and beats Whisper base on LibriSpeech, SPGISpeech, Earnings-22 and the FLEURS average. On an M4 Pro CPU it hits first token in 11 ms and decodes at 1,319 tokens/s versus Whisper base's 266. Seven languages, 30 seconds of audio per pass, word timestamps and speech embeddings included. Prebuilt for 17 targets including iOS and Android — there is no React Native package, so you would wrap the C API in a native module, but a 17 MB bundle cost for offline voice input is a very different proposition from shipping Whisper.</p>
+      <a class="src" href="https://cactuscompute.com/blog/whistle">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.dgt.is/blog/2026-10-07-deepseek-freek-out/">"Why isn't the industry freaking out about DeepSeek 4.1 Flash?"</a></h3>
+      <p>A month of hands-on use across a dozen projects, argued well enough to reach the HN front page with over 1,100 points. The author's claim is not that DeepSeek 4.1 Flash matches frontier models on hard problems, but that it is close enough that the price difference changes workflow design: a small file-organizing task costs about $0.003 versus roughly $1 on a frontier model, and a KV cache about 437x smaller than DeepSeek V1 keeps long sessions cheap. His pattern is DeepSeek for planning, research and fixes, frontier models for final review. Mostly subjective, but the cost argument is the one to take seriously when you plan model routing.</p>
+      <a class="src" href="https://www.dgt.is/blog/2026-10-07-deepseek-freek-out/">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/">EmbeddingGemma 2 puts multimodal embeddings on-device under Apache 2.0</a></h3>
+      <p>740M parameters total, but text-only use needs about 270M, with optional vision (170M) and audio (300M) encoders — roughly 191 MB of RAM quantized for text, 567 MB for the full model. Text, images, audio, video and code share one embedding space with an 8K-token context. MTEB Code jumped from 68.76 to 78.68. Matryoshka training lets you truncate 768-dim vectors to 512, 256 or 128, which cuts vector storage up to 6x — a direct saving if you store embeddings in MongoDB Atlas Vector Search. Runs in browsers via transformers.js or WebGPU, and on devices via MediaPipe or LiteRT.</p>
+      <a class="src" href="https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/">Google blog</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>AI models &amp; research</h2>
+
+    <div class="item">
+      <h3><a href="https://reflection.ai/blog/introducing-beam">Reflection's Beam: a 501B open-weight model, and Nvidia circling the company</a></h3>
+      <p>Beam is a sparse MoE with 501B total and 23B active parameters, 52 layers, 1M-token context after midtraining, pretrained on 23.8T tokens in under four weeks on 6,144 GB300 GPUs. Reported scores: SWE-Bench Verified 80.9, Terminal Bench v2.1 80.1, SWE-Bench Pro v1 65.5. Weights are promised under Apache 2.0 "this month"; access is waitlisted for now. Five days later the FT reported Nvidia is in talks to acquire Reflection AI — which would put the leading US open-weight effort inside a chip vendor. Worth tracking together rather than separately.</p>
+      <a class="src" href="https://reflection.ai/blog/introducing-beam">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://mistral.ai/news/mistral-large-4/">Mistral Large 4, nicknamed "le Chonk"</a></h3>
+      <p>About 1T total parameters with 52B active, natively multimodal MoE, at $1.36 per million input tokens and $4.18 output. Reported DeepSWE v1.1 61.7%, Terminal-Bench 4.0 28.3%, Cybench 93%. Public preview API through Mistral Studio, weights promised by end of month, with a European deployment Mistral runs end to end — the relevant detail if you have EU data-residency constraints.</p>
+      <a class="src" href="https://mistral.ai/news/mistral-large-4/">Mistral blog</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://openai.com/index/sharing-ai-progress-in-mathematics/">AI-generated mathematics became the week's biggest argument</a></h3>
+      <p>OpenAI published a batch of new mathematical results from an internal frontier model, hosted in a GitHub repo with many proofs formalized in Lean, averaging about three hours of ChatGPT Pro-equivalent thinking per result. The model is not released. The reaction was the story: Terence Tao's "Math 2.0" slides argued the field needs to value mathematical progress more holistically, Scott Aaronson wrote "The Mathocalypse," and Tao separately posted on what mathematicians should know about Lean's reliability. Four of the week's five highest-voted technical HN threads were about this.</p>
+      <a class="src" href="https://openai.com/index/sharing-ai-progress-in-mathematics/">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://twitter.com/karpathy/status/2109361546505966046">Karpathy: the gap in shared understanding of LLM capability is widening</a></h3>
+      <p>A widely shared short post arguing that people's mental models of what these models can do are diverging faster than the models themselves are improving — heavy users and casual users now describe different technologies. Relevant when you set expectations with non-technical stakeholders on an LLM feature.</p>
+      <a class="src" href="https://twitter.com/karpathy/status/2109361546505966046">HN</a>
+    </div>
+  </section>
+
+  <section class="topic">
+    <h2>Industry &amp; broader tech</h2>
+
+    <div class="item">
+      <h3><a href="https://news.mit.edu/2026/margaret-hamilton-computing-pioneer-dies-1007">Margaret Hamilton has died</a></h3>
+      <p>The Apollo flight software lead who coined the term "software engineering" died on Oct 7. The week's top HN story by a wide margin, at over 2,100 points.</p>
+      <a class="src" href="https://news.mit.edu/2026/margaret-hamilton-computing-pioneer-dies-1007">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html">OpenAI's annualised revenue is reportedly $20B below what was signalled</a></h3>
+      <p>CNBC reported the gap on Oct 8, alongside continued scrutiny of the circular compute deals with Nvidia, Oracle and CoreWeave. One line of context for pricing: aggressive per-token discounts across the industry may not be permanent.</p>
+      <a class="src" href="https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html">HN</a>
+    </div>
+
+    <div class="item">
+      <h3><a href="https://www.theverge.com/games/1009140/ram-shortage-intel-amd-ddr4-comeback">The RAM shortage is bringing DDR4 back</a></h3>
+      <p>Intel and AMD are reviving DDR4 support as memory prices stay high. Mostly outside your stack, but it is the reason laptop and server RAM upgrades are expensive right now.</p>
+      <a class="src" href="https://www.theverge.com/games/1009140/ram-shortage-intel-amd-ddr4-comeback">HN</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <a href="../index.html">All briefs</a>
+  </footer>
+
+</div>
+</body>
+</html>
